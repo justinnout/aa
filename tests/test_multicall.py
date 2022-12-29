@@ -6,12 +6,10 @@ from utils.TransactionSender import from_call_to_call_array
 user1 = 0x69221ff9023c4d7ba9123f0f9c32634c23fc5776d86657f464ecb51fd811445
 user2 = 0x72648c3b1953572d2c4395a610f18b83cca14fa4d1ba10fc4484431fd463e5c
 
-@pytest.fixture(scope='module')
-async def starknet():
-    return await Starknet.empty()
-
 @pytest.mark.asyncio
-async def test_multicall(starknet: Starknet):
+async def test_multicall():
+
+    starknet = await Starknet.empty()
 
     multicall_cls = compile('contracts/lib/Multicall.cairo')
     erc20_cls = compile('contracts/lib/ERC20.cairo')
