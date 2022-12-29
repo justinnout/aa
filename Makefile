@@ -4,4 +4,4 @@ build:
 
 .PHONY: test
 test:
-	pytest tests/test_contract.py
+	pytest tests/*

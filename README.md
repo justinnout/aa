@@ -1,5 +1,5 @@
 # aa
-account abstraction on starknet
+account abstraction w/ multicall support on starknet
 
 ## background
 
@@ -31,7 +31,7 @@ account = await starknet.deploy(
 await signer.send_transaction(account, some_contract_address, 'some_function', [some_parameter])
 ```
 
-### Account entrypoints
+### account entrypoints
 
 Account contracts have only three entry points for all user interactions:
 
@@ -51,14 +51,38 @@ await signer.send_transaction(
 
 ## development
 
-### compile the contracts
+### Setup a local virtual env with Python 3.9
 
+```
+python3.9 -m venv ./venv
+source ./venv/bin/activate
+```
+
+### Install Cairo dependencies
+```
+brew install gmp
+```
+
+You might need this extra step if you are running on a Mac with the M1 chip
+
+```
+CFLAGS=-I`brew --prefix gmp`/include LDFLAGS=-L`brew --prefix gmp`/lib pip install ecdsa fastecdsa sympy
+```
+
+```
+pip install -r requirements.txt
+```
+
+See for more details:
+- https://www.cairo-lang.org/docs/quickstart.html
+- https://github.com/martriay/nile
+
+### compile the contracts
 ```
 make build
 ```
 
 ### test the contracts
-
 ```
 make test
 ```
