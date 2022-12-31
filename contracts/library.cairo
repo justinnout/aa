@@ -110,4 +110,11 @@ namespace MagicModel {
         }
         return (is_valid=TRUE);
     }
+
+    func get_signer{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
+        signer: felt
+    ) {
+        let (res) = _signer.read();
+        return (signer=res);
+    }
 }

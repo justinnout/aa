@@ -162,3 +162,47 @@ func __validate_deploy__{
     MagicModel.validate_signer_signature(tx_info.transaction_hash, tx_info.signature_len, tx_info.signature);
     return ();
 }
+
+/////////////////////
+// EXTERNAL FUNCTIONS
+/////////////////////
+
+// @dev Initializes the account with the signer.
+// Must be called immediately after the account is deployed.
+// @param signer The signer public key
+@external
+func initialize{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}(
+    signer: felt
+) {
+    MagicModel.initialize(signer);
+    let (self) = get_contract_address();
+    return ();
+}
+
+/////////////////////
+// VIEW FUNCTIONS
+/////////////////////
+
+// @dev Gets the current signer
+// @return signer The public key of the signer
+@view
+func getSigner{syscall_ptr: felt*, pedersen_ptr: HashBuiltin*, range_check_ptr}() -> (
+    signer: felt
+) {
+    let (res) = MagicModel.get_signer();
+    return (signer=res);
+}
+
+// @dev Gets the version of the account implementation
+// @return version The current version as a short string
+@view
+func getVersion() -> (version: felt) {
+    return (version=VERSION);
+}
+
+// @dev Gets the name of the account implementation
+// @return name The name as a short string
+@view
+func getName() -> (name: felt) {
+    return (name=NAME);
+}
