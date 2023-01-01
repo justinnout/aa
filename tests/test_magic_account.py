@@ -93,3 +93,13 @@ async def test_call_dapp(contract_factory):
     assert (await dapp.get_number(account.contract_address).call()).result.number == 0
     await sender.send_transaction([(dapp.contract_address, 'set_number', [47])], [signer])
     assert (await dapp.get_number(account.contract_address).call()).result.number == 47
+
+@pytest.mark.asyncio
+async def test_multicall(contract_factory):
+    account, dapp = await contract_factory
+    sender = TransactionSender(account)
+
+    # should call the dapp
+    assert (await dapp.get_number(account.contract_address).call()).result.number == 0
+    await sender.send_transaction([(dapp.contract_address, 'set_number', [47]), (dapp.contract_address, 'increase_number', [10])], [signer])
+    assert (await dapp.get_number(account.contract_address).call()).result.number == 57
