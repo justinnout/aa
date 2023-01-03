@@ -4,4 +4,4 @@ build:
 
 .PHONY: test
 test:
-	pytest tests/*
+	pytest tests/test*
